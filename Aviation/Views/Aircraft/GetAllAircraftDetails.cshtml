@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Aviation.Models.AircraftModel>
+<br />
+<br />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            if ($("#searchbox").val() == "") {
+                alert("There is no value in search box");
+            }
+        });
+    });
+</script>
+@using (Html.BeginForm("SearchAircraft", "Aircraft", FormMethod.Get))
+{
+    //the following are search options
+    <b> Search Option: </b>
+    <br />
+    @Html.RadioButton("option", "Make") <text>Make</text>
+    @Html.RadioButton("option", "Model") <text> Model </text>
+    @Html.RadioButton("option", "Registration")<text>Registration</text>
+    @Html.RadioButton("option", "Location")<text>Location</text>
+    @Html.TextBox("search" ,null,new { @id = "searchbox" })
+
+    <input type="submit" name="submit" id="submit" value="Search" />
+}
+<br />
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Make)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Registration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Registration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStamp)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditAircraftDetails", new { id = item.ID }) |
+                @Html.ActionLink("Details", "DisplayAircraftDetails", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "DeleteAircraft", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+  
